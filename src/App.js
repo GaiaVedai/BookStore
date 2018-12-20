@@ -6,7 +6,6 @@ import CartContainer from './Cart/CartContainer';
 import LocalStorage from './LocalStorage'
 import './Styling/App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faBookOpen } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faShoppingCart, faBookOpen)
@@ -24,29 +23,9 @@ class App extends Component {
 
   componentDidMount = () => {
     const localCart = LocalStorage.getFromLocalStorage()
-    console.log(localCart)
-    this.setState({ cart: localCart })
-
-
-
-    //   const bookmap =[
-    //   {
-    //     id: 1,
-    //     title: 'bla',
-    //     thumbnail: 'abla bla bla',
-    //     pageCount: 'bla bla',
-    //     price: 10,
-    //   },
-    //     {
-    //       id: 2,
-    //       title: 'bla',
-    //       thumbnail: 'abla bla bla',
-    //       pageCount: 'bla bla',
-    //       price: 10
-    //   }]
-    //   this.setState({ books: bookmap })
-    // }
-
+    if (localCart) {
+      this.setState({ cart: localCart })
+    }
 
     getBookInfo()
       .then((response) => {
@@ -64,11 +43,9 @@ class App extends Component {
         this.setState({ books: bookmap })
       })
       .catch(function (error) {
-        console.log(error);
       });
   }
   changeCartState = (newState) => {
-    console.log(newState)
     this.setState({ ...newState })
   }
 
@@ -86,10 +63,12 @@ class App extends Component {
     const newCart = cartBookList.filter(book => {
       return book.id !== deletedBook.id
     })
-    this.setState({ cart: newCart }, () => { LocalStorage.saveToLocalStorage(this.state.cart) })
-    if (this.state.cart.length === 0) {
-      this.setState({ cartActive: false })
-    }
+    this.setState({ cart: newCart }, () => {
+      LocalStorage.saveToLocalStorage(this.state.cart)
+      if (this.state.cart.length === 0) {
+        this.setState({ cartActive: false })
+      }
+    })
 
   }
 

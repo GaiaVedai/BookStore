@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class CartContainer extends Component {
 
+  
+
     showCartBox = () => {
-        console.log(this.props.cart)
-        // console.log(this.props.cart)
         if (this.props.cart.length > 0) {
             return this.props.cart.map(book => {
                 return <CartBookbox

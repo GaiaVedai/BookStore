@@ -7,20 +7,21 @@
 
 .cartBookbox {
     position: relative;
-    border-top: 1px solid #0C0C5E;
-    border-bottom: 1px solid #0C0C5E;
-    border-radius: 3px;
     text-align: left;
     font-size: 0.75em;
     height: 140px;
     line-height: 0.9;
+    border-bottom: 1px solid rgb(207, 179, 208);
+
 
 }
 
 .delete {
     font-size: 20px;
     float: right;
-    color: red
+    color: red;
+    cursor: pointer;
+
 }
 p {
     margin: 7px;
@@ -41,13 +42,16 @@ h4 {
 }
 
 .update {
-/* position: absolute; */
+margin: 3px;
 cursor: pointer;
+margin-left: 20px;
+width: 104px;
+
 }
 
-/* input {
-  display: inline-block;
-} */
+input {
+  display:block;
+}
 
 .validError {
     color: red

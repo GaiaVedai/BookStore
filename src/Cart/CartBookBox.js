@@ -6,13 +6,12 @@ class CartBookbox extends Component {
         super(props)
         this.state = {
             error: '',
-          
+
         }
     }
 
 
     deleteBook = () => {
-        console.log(this.props)
         this.props.deleteBook(this.props)
 
 
@@ -32,21 +31,20 @@ class CartBookbox extends Component {
 
     quantityValidation = (e) => {
         e.preventDefault()
-
-        console.log(this.state.quantity)
-
-        if (this.state.quantity < 1 || this.state.quantity > 100 || this.state.quantity === '') {
+        const quantity = this.state.quantity
+    
+        if (quantity < 1 || quantity > 100 || quantity === '' || isNaN(quantity)) {
             this.setState({ error: 'Error! this is not a valid number' })
             return
         }
         this.setState({ error: '' })
 
         this.props.updateCartQuantity(this.state.quantity, this.props.id)
-        
+
     }
 
     resetInput = () => {
-        this.setState({reset: ''})
+        this.setState({ reset: '' })
     }
 
     render() {
@@ -65,6 +63,7 @@ class CartBookbox extends Component {
                     <input type="submit" value="update quantity" htmlFor="quantity" className="quantity update" />
                     {this.state.error && (<p className="validError"> {this.state.error} </p>)}
                 </form>
+
             </div>
         )
     }

@@ -2,13 +2,10 @@
 
 
 .bookbox {
-    position: relative;
+    display: flex;
     width: 97%;
-    min-width: 610px;
-    height: 12%;
     border: 1px solid #0C0C5E;
     border-radius: 8px;
-    margin:auto;
     padding: 10px;
     font-family: 'Acme', sans-serif;
     text-align: left;
@@ -18,18 +15,15 @@
 .bookboxText {
     display: inline-block;
     padding: 15px 15px 0 15px;
-    left: 400px;
+    flex: 4;
 
 }
 
 .bookPic {
     /* position: absolute; */
     display: inline-block;
+    flex: 2;
+    margin-left: 10%;
 
 }
 
-.addToCart{
-    transform: translate3d(0,0.7em,0);
-    transition: transform 0.4s cubic-bezier(.2,0,0,1) 0.4s;
-    border: $thick solid transparent;
-}
