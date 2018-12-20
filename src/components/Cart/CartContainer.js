@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CartBookbox from './CartBookBox';
-import '../Styling/cart.css'
+import '../../Styling/cart.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class CartContainer extends Component {

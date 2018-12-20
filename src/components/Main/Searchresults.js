@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Bookbox from './Bookbox'
-import '../Styling/searchresults.css'
+import '../../Styling/searchresults.css'
 
 
 

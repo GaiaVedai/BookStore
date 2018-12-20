@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from './Main/Header'
-import Searchresults from './Main/Searchresults'
+import Header from './components/Main/Header'
+import Searchresults from './components/Main/Searchresults'
 import getBookInfo from './Axios'
-import CartContainer from './Cart/CartContainer';
+import CartContainer from './components/Cart/CartContainer';
 import LocalStorage from './LocalStorage'
 import './Styling/App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'

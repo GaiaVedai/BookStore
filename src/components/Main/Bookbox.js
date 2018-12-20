@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../Styling/bookbox.css'
+import '../../Styling/bookbox.css'
 
 class Bookbox extends Component {
 

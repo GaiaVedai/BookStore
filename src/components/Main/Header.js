@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../Styling/header.css'
+import '../../Styling/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Header extends Component {
