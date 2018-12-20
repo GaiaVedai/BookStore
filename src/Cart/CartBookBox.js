@@ -4,8 +4,9 @@ class CartBookbox extends Component {
 
     constructor(props) {
         super(props)
-        this.state={
-            error:''
+        this.state = {
+            error: '',
+          
         }
     }
 
@@ -20,35 +21,33 @@ class CartBookbox extends Component {
         const target = event.target
         const value = target.value
         const name = target.name
-        console.log(value)
-        
+
         event.preventDefault()
         this.setState({
             [name]: value
         })
-        
-        
+
+
     }
 
     quantityValidation = (e) => {
         e.preventDefault()
 
         console.log(this.state.quantity)
-        
-        if (this.state.quantity< 1 || this.state.quantity < 100) {
-            this.setState({error:'Error! this is not a valid number'})
+
+        if (this.state.quantity < 1 || this.state.quantity > 100 || this.state.quantity === '') {
+            this.setState({ error: 'Error! this is not a valid number' })
             return
         }
-        // this.setState({error:''})
+        this.setState({ error: '' })
+
+        this.props.updateCartQuantity(this.state.quantity, this.props.id)
+        
     }
 
-    updateCart = () => {
-        // event.preventDefault();
-        this.quantityValidation()
-
+    resetInput = () => {
+        this.setState({reset: ''})
     }
-
-    
 
     render() {
         return (
@@ -56,14 +55,15 @@ class CartBookbox extends Component {
                 <h4>Title: {this.props.title}</h4>
                 <div>
                     <p className="delete" onClick={this.deleteBook}>X</p>
-                    <p>Pages: {this.props.pages}</p>
+                    {/* <p>Pages: {this.props.pages}</p> */}
                     <p>Price: {this.props.price}</p>
                     <p>Quantity: {this.props.quantity}</p>
                 </div>
-                <form onSubmit={this.quantityValidatio}>
+                <form onSubmit={this.quantityValidation}>
+
                     <input type="text" name="quantity" onChange={this.handleCartUpdate} max="100" min="1" className="quantity" />< br />
-                    <input type="submit"  value="update quantity"  htmlFor="quantity" className="quantity" />
-                    {this.state.error && (<p> {this.state.error} </p>)}
+                    <input type="submit" value="update quantity" htmlFor="quantity" className="quantity update" />
+                    {this.state.error && (<p className="validError"> {this.state.error} </p>)}
                 </form>
             </div>
         )

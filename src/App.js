@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import Header from './Main/Header'
 import Searchresults from './Main/Searchresults'
 import getBookInfo from './Axios'
-import './App.css';
 import CartContainer from './Cart/CartContainer';
+import LocalStorage from './LocalStorage'
+import './Styling/App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart, faBookOpen } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faShoppingCart, faBookOpen)
 
 class App extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       books: [],
       cartActive: false,
@@ -16,23 +23,29 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-  //   const bookmap =[
-  //   {
-  //     id: 1,
-  //     title: 'bla',
-  //     thumbnail: 'abla bla bla',
-  //     pageCount: 'bla bla',
-  //     price: 10,
-  //   },
-  //     {
-  //       id: 2,
-  //       title: 'bla',
-  //       thumbnail: 'abla bla bla',
-  //       pageCount: 'bla bla',
-  //       price: 10
-  //   }]
-  //   this.setState({ books: bookmap })
-  // }
+    const localCart = LocalStorage.getFromLocalStorage()
+    console.log(localCart)
+    this.setState({ cart: localCart })
+
+
+
+    //   const bookmap =[
+    //   {
+    //     id: 1,
+    //     title: 'bla',
+    //     thumbnail: 'abla bla bla',
+    //     pageCount: 'bla bla',
+    //     price: 10,
+    //   },
+    //     {
+    //       id: 2,
+    //       title: 'bla',
+    //       thumbnail: 'abla bla bla',
+    //       pageCount: 'bla bla',
+    //       price: 10
+    //   }]
+    //   this.setState({ books: bookmap })
+    // }
 
 
     getBookInfo()
@@ -55,36 +68,46 @@ class App extends Component {
       });
   }
   changeCartState = (newState) => {
+    console.log(newState)
     this.setState({ ...newState })
-    // this.handleCartDisplay()
   }
 
 
   addToCart = (addedBook) => {
     const foundBook = this.state.cart.some(item => addedBook.id === item.id)
     if (this.state.cart.length >= 0 && !foundBook) {
-      this.setState({ cartActive: true, cart: [...this.state.cart, { ...addedBook, quantity: 1}] })
+      this.setState({ cartActive: true, cart: [...this.state.cart, { ...addedBook, quantity: 1 }] },
+        () => { LocalStorage.saveToLocalStorage(this.state.cart) })
     }
   }
 
-  deleteBook = (deletedBook) =>{
+  deleteBook = (deletedBook) => {
     const cartBookList = this.state.cart
     const newCart = cartBookList.filter(book => {
       return book.id !== deletedBook.id
     })
-    this.setState({cart : newCart},()=>{
-      if(this.state.cart.length === 0 ) {
-        this.setState({cartActive:false})
+    this.setState({ cart: newCart }, () => { LocalStorage.saveToLocalStorage(this.state.cart) })
+    if (this.state.cart.length === 0) {
+      this.setState({ cartActive: false })
+    }
+
+  }
+
+  updateCartQuantity = (quantity, bookId) => {
+    const newCart = this.state.cart.map(book => {
+      if (book.id === bookId) {
+        return { ...book, quantity }
       }
+      return book
     })
-    // if (!this.state.cart.deleteBook )
-} 
+    this.setState({ cart: newCart }, () => { LocalStorage.saveToLocalStorage(this.state.cart) })
+  }
 
   render() {
     return (
       <div className="App">
-        <Header changeCartState={this.changeCartState} cartLength={this.state.cart.length}  >
-          {this.state.cartActive && (<CartContainer cart={this.state.cart} deleteBook={this.deleteBook}/>)}
+        <Header changeCartState={this.changeCartState} cartLength={this.state.cart.length} updateCartQuantity={this.updateCartQuantity} >
+          {this.state.cartActive && (<CartContainer cart={this.state.cart} deleteBook={this.deleteBook} updateCartQuantity={this.updateCartQuantity} />)}
         </Header>
 
         <Searchresults books={this.state.books} addToCart={this.addToCart} cartActive={this.state.cartActive} />

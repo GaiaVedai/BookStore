@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Bookbox from './Bookbox'
+import '../Styling/searchresults.css'
 
 
 
@@ -29,7 +30,7 @@ class Searchresults extends Component {
         }
         return (
             <div className={classes}>
-                <p> Serch Results  </p>
+                <h2> Search Results  </h2>
                 {this.createBookboxes()}
             </div>
         )

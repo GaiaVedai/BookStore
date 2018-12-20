@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import CartBookbox from './CartBookBox';
-import './cart.css'
+import '../Styling/cart.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class CartContainer extends Component {
 
     showCartBox = () => {
         console.log(this.props.cart)
+        // console.log(this.props.cart)
         if (this.props.cart.length > 0) {
             return this.props.cart.map(book => {
                 return <CartBookbox
@@ -17,6 +19,7 @@ class CartContainer extends Component {
                     price={book.price}
                     deleteBook={this.props.deleteBook}
                     quantity={book.quantity}
+                    updateCartQuantity={this.props.updateCartQuantity}
                 />
             })
         }
@@ -25,26 +28,30 @@ class CartContainer extends Component {
     updateTotal = () => {
 
         const bookPrice = this.props.cart.map(book => {
-            return book.price
+            return book.price * book.quantity
         })
         const bookTotal = bookPrice.reduce((a, b) => a + b, 0)
         return bookTotal + '$'
 
 
-
     }
 
-    deleteBook = (book) =>{
+    deleteBook = (book) => {
         this.props.deleteBook(book)
-    } 
+    }
+
     render() {
         const noOfItems = this.props.cart.length
         return (
             <div className="cartContainer">
-                <div>Shopping Cart</div>
+                <div>
+                    Shopping Cart
+                </div>
                 you have {noOfItems} items
                     {this.showCartBox()}
                 <div className="total">
+                    <div className="faBookIcon"><FontAwesomeIcon icon="book-open" />
+                    </div>
                     <p>Total:</p>
                     <p>{this.updateTotal()}</p>
                 </div>

@@ -1,0 +1,58 @@
+.cartContainer {
+    background-color: rgb(238, 238, 253);
+    border-radius: 5px;
+    min-width: 130px;;
+
+}
+
+.cartBookbox {
+    position: relative;
+    border-top: 1px solid #0C0C5E;
+    border-bottom: 1px solid #0C0C5E;
+    border-radius: 3px;
+    text-align: left;
+    font-size: 0.75em;
+    height: 140px;
+    line-height: 0.9;
+
+}
+
+.delete {
+    font-size: 20px;
+    float: right;
+    color: red
+}
+p {
+    margin: 7px;
+}
+
+h4 {
+    margin: 7px;
+    line-height: 1.1;
+}
+
+.quantity {
+    position: relative;
+    width: 100px;
+    font-size: 12px;
+    display: inline-block;
+    clear: left;
+    margin-left: 20px;
+}
+
+.update {
+/* position: absolute; */
+cursor: pointer;
+}
+
+/* input {
+  display: inline-block;
+} */
+
+.validError {
+    color: red
+}
+
+.faBookIcon {
+    /* position: absolute; */
+}
